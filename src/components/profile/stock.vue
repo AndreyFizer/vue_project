@@ -1,5 +1,54 @@
 <template>
-  <div >
-    <h1 > Profile-stock Component </h1 >
+  <div class="col-sm-6 col-md-4" >
+    <div class="panel panel-success" >
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          {{ stock.name }}
+          <small>(price: {{ stock.price }} | quantity: {{ stock.quantity }})</small>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <div class="pull-left">
+          <input
+              type="text"
+              class="form-control"
+              placeholder="Quantity"
+              v-model="quantity"
+          >
+        </div>
+        <div class="pull-right">
+          <button
+              class="btn btn-success"
+              v-on:click="onStockSave"
+              v-bind:disabled="(quantity <= 0 || !Number.isInteger(quantity))"
+          >
+            Buy
+          </button>
+        </div>
+      </div>
+    </div >
   </div >
 </template>
+
+<script >
+  import { mapActions } from 'vuex';
+
+  export default {
+    data: () => ({
+      quantity: 0,
+    }),
+    methods: {
+      ...mapActions([
+        'sellStock'
+      ]),
+      onStockSell(){
+        const order = {
+          name: this.stock.name,
+          price: this.stock.price,
+          quantity: this.quantity,
+        };
+      }
+    },
+    props: ['stock']
+  }
+</script >
