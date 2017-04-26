@@ -19,9 +19,9 @@
         <div class="pull-right">
           <button
               class="btn btn-success"
-              v-on:click="onStockSave"
-              v-bind:disabled="(quantity <= 0 || !Number.isInteger(quantity))"
-          >
+              v-on:click="onStockSave">
+              <!--v-bind:disabled="(quantity <= 0 || !Number.isInteger(quantity))"-->
+
             Buy
           </button>
         </div>
@@ -38,10 +38,11 @@
     methods: {
       onStockSave(){
         const order = {
-          name: this.stock.name,
-          price: this.stock.price,
+          stockId: this.stock.id,
+          stockPrice: this.stock.price,
           quantity: this.quantity,
         };
+        this.$store.dispatch('buyStocks', order);
         this.quantity = 0;
       }
     },

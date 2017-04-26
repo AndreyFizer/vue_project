@@ -1,6 +1,6 @@
 <template>
   <div class="col-sm-6 col-md-4" >
-    <div class="panel panel-success" >
+    <div class="panel panel-info" >
       <div class="panel-heading">
         <h3 class="panel-title">
           {{ stock.name }}
@@ -19,10 +19,10 @@
         <div class="pull-right">
           <button
               class="btn btn-success"
-              v-on:click="onStockSave"
-              v-bind:disabled="(quantity <= 0 || !Number.isInteger(quantity))"
+              v-on:click="onStockSell"
           >
-            Buy
+              <!--v-bind:disabled="(quantity <= 0 || !Number.isInteger(quantity))"-->
+            Sell
           </button>
         </div>
       </div>
@@ -43,10 +43,12 @@
       ]),
       onStockSell(){
         const order = {
-          name: this.stock.name,
-          price: this.stock.price,
+          stockId: this.stock.id,
+          stockPrice: this.stock.price,
           quantity: this.quantity,
         };
+        this.sellStock(order);
+        this.quantity = 0;
       }
     },
     props: ['stock']

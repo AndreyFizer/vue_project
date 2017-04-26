@@ -5,17 +5,17 @@ const state = {
 };
 
 const mutations = {
-  'FETCH_STOCKS' (state, stocks) {
+  'FETCH_STOCKS'(state, stocks) {
     state.stocks = stocks;
   },
-  'RND_STOCKS' (state, stocks) {
+  'RND_STOCKS'(state, stocks) {
 
   }
 };
 
 const actions = {
-  buyStocks: (store) => {
-    store.commit();
+  buyStocks: (store, order) => {
+    store.commit('BUY_STOCK', order);
   },
   fetchStocks: (store) => {
     store.commit('FETCH_STOCKS', stocksData);
