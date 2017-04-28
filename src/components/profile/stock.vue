@@ -14,15 +14,16 @@
               class="form-control"
               placeholder="Quantity"
               v-model="quantity"
+              :class="{danger: inefficientQantity}"
           >
         </div>
         <div class="pull-right">
           <button
               class="btn btn-success"
               v-on:click="onStockSell"
+              v-bind:disabled="(inefficientQantity || quantity <= 0 || !Number.isInteger(+quantity))"
           >
-              <!--v-bind:disabled="(quantity <= 0 || !Number.isInteger(quantity))"-->
-            Sell
+            {{ inefficientQantity ? 'Not enaugh' : 'Sell'}}
           </button>
         </div>
       </div>
@@ -37,6 +38,11 @@
     data: () => ({
       quantity: 0,
     }),
+    computed: {
+      inefficientQantity(){
+        return this.quantity > this.stock.quantity;
+      }
+    },
     methods: {
       ...mapActions([
         'sellStock'
@@ -54,3 +60,9 @@
     props: ['stock']
   }
 </script >
+
+<style scoped >
+  .danger {
+    border: 1px solid red;
+  }
+</style >
